@@ -16,6 +16,7 @@ document.querySelector('#task-data').addEventListener('submit', function (e) {
             task[pair[0]] = pair[1];
         }
 
+        //Convierte la imagen para almacenarla en indexedDb
         var reader = new FileReader();
         reader.readAsBinaryString(task.picture);
         reader.onload = function (e) {
@@ -44,6 +45,7 @@ function showTasks(db) {
                 let container = createElement('div');
                 let taskName = createElement('div');
                 let taskDescription = createElement('div');
+                //Lee la imagen almacenada en la indexedDb para convertirla a base64
                 let img = createElement('img', keys[key], null, getImageFromBinary(task.picture));
 
                 taskName.innerHTML = `<strong>${task.task_name.toUpperCase()}</strong>`;
