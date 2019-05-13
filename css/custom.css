@@ -1,0 +1,4 @@
+#tasks-container > div{
+    border-bottom: solid var(--light-grey) 2px;
+    padding: 4px;
+}

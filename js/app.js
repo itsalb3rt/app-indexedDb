@@ -3,29 +3,34 @@ showTasks(getDb());
 
 document.querySelector('#task-data').addEventListener('submit', function (e) {
     e.preventDefault();
-    let formData = new FormData(this);
-    var task = {};
-    let dbSize = 0;
-    let taskAppStore = getDb();
 
-    for (var pair of formData.entries()) {
-        task[pair[0]] = pair[1];
-    }
 
-    var reader = new FileReader();
-    reader.readAsBinaryString(task.picture);
-    reader.onload = function (e) {
-        task.picture = e.target.result;
+    var request = confirm("Are u sure ?");
+    if (request == true) {
+        let formData = new FormData(this);
+        var task = {};
+        let dbSize = 0;
+        let taskAppStore = getDb();
 
-        taskAppStore.length().then(function (numberOfKeys) {
-            dbSize = numberOfKeys + 1;
-            taskAppStore.setItem(JSON.stringify(dbSize), task);
-        }).then(() => {
-            showTasks(taskAppStore);
-            document.querySelector('#task-data').reset();
-        }).catch(err => {
-            console.log(err);
-        });
+        for (var pair of formData.entries()) {
+            task[pair[0]] = pair[1];
+        }
+
+        var reader = new FileReader();
+        reader.readAsBinaryString(task.picture);
+        reader.onload = function (e) {
+            task.picture = e.target.result;
+
+            taskAppStore.length().then(function (numberOfKeys) {
+                dbSize = numberOfKeys + 1;
+                taskAppStore.setItem(JSON.stringify(dbSize), task);
+            }).then(() => {
+                showTasks(taskAppStore);
+                document.querySelector('#task-data').reset();
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     }
 });
 
@@ -44,8 +49,8 @@ function showTasks(db) {
                 taskName.innerHTML = `<strong>${task.task_name.toUpperCase()}</strong>`;
                 taskDescription.innerHTML = `${task.task_descripcion}`;
 
-                img.setAttribute('width','100px');
-                img.setAttribute('heigh','100px');
+                img.setAttribute('width', '100px');
+                img.setAttribute('heigh', '100px');
 
                 removeButton.setAttribute('onclick', `removeTask(${keys[key]})`);
                 removeButton.textContent = 'Remove';
