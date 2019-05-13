@@ -1,4 +1,7 @@
 #tasks-container > div{
-    border-bottom: solid var(--light-grey) 2px;
-    padding: 4px;
+    border-bottom: solid rgba(102, 102, 102, 0.26) 2px;
+    padding: 6px;
+    box-shadow: 0px 0px 4px 1px rgba(102, 102, 102, 0.26);
+    margin: 24px auto;
+    border-radius: 4px;
 }
