@@ -9,7 +9,7 @@ document.querySelector('#task-data').addEventListener('submit', function (e) {
     if (request == true) {
         let formData = new FormData(this);
         var task = {};
-        let dbSize = 0;
+        let keyStore = 0;
         let taskAppStore = getDb();
 
         for (var pair of formData.entries()) {
@@ -22,8 +22,8 @@ document.querySelector('#task-data').addEventListener('submit', function (e) {
             task.picture = e.target.result;
 
             taskAppStore.length().then(function (numberOfKeys) {
-                dbSize = numberOfKeys + 1;
-                taskAppStore.setItem(JSON.stringify(dbSize), task);
+                keyStore = numberOfKeys + 1;
+                taskAppStore.setItem(JSON.stringify(keyStore), task);
             }).then(() => {
                 showTasks(taskAppStore);
                 document.querySelector('#task-data').reset();
@@ -84,7 +84,6 @@ function removeTask(key) {
     db.removeItem(JSON.stringify(key)).then(function () {
         showTasks(db);
     }).catch(function (err) {
-        // This code runs if there were any errors
         console.log(err);
     });
 }
